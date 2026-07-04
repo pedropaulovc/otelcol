@@ -18,6 +18,16 @@ exporters:
     compression: none   # Aspire's OTLP/HTTP receiver can't decode gzip -> 500 invalid-wire-type
   otlphttp/jaeger:
     endpoint: http://localhost:4318
+  # Durable copy: newline-delimited OTLP-JSON on disk (viewers are all in-memory).
+  # Path is RELATIVE to the collector's working dir, which start-otelcol.ps1 pins
+  # to the repo root, so this lands in ./bin/otelcol/ (gitignored) wherever cloned.
+  # Rotates via lumberjack: telemetry.jsonl -> telemetry-<ts>.jsonl at 100 MB, keep 3.
+  file/archive:
+    path: bin/otelcol/telemetry.jsonl
+    format: json
+    rotation:
+      max_megabytes: 100
+      max_backups: 3
 
 service:
   # No collector self-telemetry server (would grab a port and add noise).
@@ -27,7 +37,7 @@ service:
   pipelines:
     traces:
       receivers: [otlp]
-      exporters: [otlphttp/aspire, otlphttp/jaeger]
+      exporters: [otlphttp/aspire, otlphttp/jaeger, file/archive]
     logs:
       receivers: [otlp]
-      exporters: [otlphttp/aspire]   # Jaeger 404s on /v1/logs - logs to Aspire only
+      exporters: [otlphttp/aspire, file/archive]   # Jaeger 404s on /v1/logs - logs to Aspire only
