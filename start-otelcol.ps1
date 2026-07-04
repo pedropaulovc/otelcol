@@ -14,6 +14,7 @@ Get-Process otelcol -ErrorAction SilentlyContinue | Stop-Process -Force
 Start-Sleep 1
 
 $p = Start-Process -FilePath $exe -ArgumentList "--config", "`"$cfg`"" `
+        -WorkingDirectory $root `
         -RedirectStandardOutput $log -RedirectStandardError "$log.err" `
         -PassThru -WindowStyle Hidden
 Write-Host "otelcol PID $($p.Id) -> OTLP in :18890 (HTTP) / :18889 (gRPC); fanning to Aspire :4319 + Jaeger :4318"
