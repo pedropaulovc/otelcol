@@ -37,7 +37,7 @@ against the freshly downloaded collector before finishing.
 ## Contents
 
 - `bootstrap.ps1` — download all binaries into `./bin/`
-- `register-startup-tasks.ps1` — (re)register the `Harmonic-OTel-*` scheduled tasks
+- `register-startup-tasks.ps1` — (re)register the `OTel-*` scheduled tasks
 - `start-otelcol.ps1` / `start-aspire.ps1` / `start-jaeger.ps1` — launchers (self-locating via `$PSScriptRoot`)
 - `config.yaml` — Collector fan-out config
 - `bin/` — downloaded binaries + logs (gitignored)

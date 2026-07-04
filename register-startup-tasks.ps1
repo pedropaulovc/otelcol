@@ -20,12 +20,12 @@ $root = $PSScriptRoot
 $ps   = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe"
 
 $tasks = @(
-    @{ Name = 'Harmonic-OTel-Collector'; Script = "$root\start-otelcol.ps1";
-       Desc = 'harmonic-analyzer OTel fan-out: OpenTelemetry Collector (spine default OTLP 18890/18889) -> Aspire 4319 + Jaeger 4318' }
-    @{ Name = 'Harmonic-OTel-Aspire'; Script = "$root\start-aspire.ps1";
-       Desc = 'harmonic-analyzer OTel viewer: .NET Aspire dashboard (UI 18888, OTLP 4319) - unified logs+traces' }
-    @{ Name = 'Harmonic-OTel-Jaeger'; Script = "$root\start-jaeger.ps1";
-       Desc = 'harmonic-analyzer OTel viewer: Jaeger all-in-one (UI 16686, OTLP 4318) - traces only' }
+    @{ Name = 'OTel-Collector'; Script = "$root\start-otelcol.ps1";
+       Desc = 'OTel fan-out: OpenTelemetry Collector (SDK default OTLP 18890/18889) -> Aspire 4319 + Jaeger 4318' }
+    @{ Name = 'OTel-Aspire'; Script = "$root\start-aspire.ps1";
+       Desc = 'OTel viewer: .NET Aspire dashboard (UI 18888, OTLP 4319) - unified logs+traces' }
+    @{ Name = 'OTel-Jaeger'; Script = "$root\start-jaeger.ps1";
+       Desc = 'OTel viewer: Jaeger all-in-one (UI 16686, OTLP 4318) - traces only' }
 )
 
 # One-per-boot/logon trigger; keep the launched process alive indefinitely.
